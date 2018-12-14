@@ -13,7 +13,7 @@ MountPointFreeSpace=( \
 UsersOnlineCount=$(users | wc -w);
 
 UsedRAMsize=$(free -m | sed '2!D' | cut -c 28-31);
-
+FreeRAMsize=$(free -m | sed '2!D' | cut -c 41-43);
 SystemUptime=$(uptime | sed 's/.*up \([^,]*\), .*/\1/');
 
 if [ ! -z "${LinesPrefix}" ] && [ ! -z "${SystemLoad}" ]; then
@@ -27,5 +27,8 @@ echo -e "${LinesPrefix}${b}Users logged in:${n}\t${UsersOnlineCount}";
 
 if [ ! -z "${UsedRAMsize}" ]; then
   echo -ne "${LinesPrefix}${b}Memory usage:${n}\t${UsedRAMsize} MB\t\t\t";
+fi;
+if [ ! -z "${FreeRAMsize}" ]; then
+  echo -ne "${LinesPrefix}${b}Memory free:${n}\t${FreeRAMsize} MB\t\t\t";
 fi;
 echo -e "${LinesPrefix}${b}System uptime:${n}\t${SystemUptime}";
